@@ -168,14 +168,15 @@ public class FileService {
             ContactCity, ContactSt ContactZip
         */
         
-        final String CR = "\n";
-        final String SP = " ";
+//        final String CR = "\n";
+//        final String SP = " ";
         String result = "";
+        PracticeFormatter pm = new PracticeFormatter();
         for(Map m : data){
-            result += m.get("ContactFirstName") + " " + m.get("ContactLastName") + CR;
-            result += m.get("ContactAddress") + CR;
-            result += m.get("ContactCity") + ", " + m.get("ContactSt") + " " + m.get("ContactZip");
-            
+//            result += m.get("ContactFirstName") + " " + m.get("ContactLastName") + CR;
+//            result += m.get("ContactAddress") + CR;
+//            result += m.get("ContactCity") + ", " + m.get("ContactSt") + " " + m.get("ContactZip");
+            result = pm.marksFormat(m);
             writer.println(result);
             result = "";
         }
