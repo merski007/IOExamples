@@ -122,9 +122,15 @@ public class FileService {
                 contactInfo.put("ContactFirstName", contactName[0]);
                 contactInfo.put("ContactLastName", contactName[1]);
                 line = reader.readLine();
+                
                 contactInfo.put("ContactAddress", line);
                 line = reader.readLine();
-                contactInfo.put("ContactCityStZip", line);
+                
+                String[] contactCityStZip = line.split(",");
+                String[] contactStZip = contactCityStZip[1].split(" ");
+                contactInfo.put("ContactCity", contactCityStZip[0]);
+                contactInfo.put("ContactSt", contactStZip[1]);
+                contactInfo.put("ContactZip", contactStZip[2]);
                 line = reader.readLine();
                 
                 contactList.add(contactInfo);
