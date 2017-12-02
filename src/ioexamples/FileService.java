@@ -148,4 +148,46 @@ public class FileService {
         
         return contactList;
     }
+    
+        public void writeFile2(File file, List<Map<String,String>> data, boolean append) 
+            throws FileNotFoundException, IOException, Exception{
+        
+        try{
+        writer = 
+                new PrintWriter(
+                    new BufferedWriter(
+                        new FileWriter(file, append)));
+        
+//        for(String s : data){
+//            writer.println(s);
+//        }
+
+        /*
+            ContactFirstName ContactLastName
+            ContactAddress
+            ContactCity, ContactSt ContactZip
+        */
+        
+        final String CR = "\n";
+        final String SP = " ";
+        String result = "";
+        for(Map m : data){
+            result += m.get("ContactFirstName") + " " + m.get("ContactLastName") + CR;
+            result += m.get("ContactAddress") + CR;
+            result += m.get("ContactCity") + ", " + m.get("ContactSt") + " " + m.get("ContactZip");
+            
+            writer.println(result);
+            result = "";
+        }
+        
+        }catch(FileNotFoundException fnfe){
+            throw fnfe;
+        }catch(IOException ioe){
+            throw ioe;
+        }catch (Exception e){
+            throw e;
+        }finally{
+            if(writer != null) writer.close();
+        }
+    }
 }

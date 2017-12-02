@@ -6,7 +6,10 @@ Mark Mersenski
 brown deer, WI 53223
 John Doe
 123 main st
-milwaukee, wi 53172
+milwaukee, WI 53172
 Aaron Rodgers
-123 Green Bay Ave
-Green Bay, WI 53756
+123 main st
+Green Bay, WI 54229
+Aaron Rodgers
+123 main st
+Green Bay, WI 54229
