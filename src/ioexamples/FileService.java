@@ -9,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -104,5 +106,40 @@ public class FileService {
         }
         
         return lineList;
+    }
+    
+    public List<Map<String,String>> readContactFile2(File file)throws FileNotFoundException, IOException, Exception{
+        reader = new BufferedReader(new FileReader(file));
+        
+        List<Map<String,String>> contactList = new ArrayList<>();
+        Map contactInfo = new LinkedHashMap<>();
+
+        String line = reader.readLine();
+        
+        try{
+            while(line != null){
+                String[] contactName = line.split(" ");
+                contactInfo.put("ContactFirstName", contactName[0]);
+                contactInfo.put("ContactLastName", contactName[1]);
+                line = reader.readLine();
+                contactInfo.put("ContactAddress", line);
+                line = reader.readLine();
+                contactInfo.put("ContactCityStZip", line);
+                line = reader.readLine();
+                
+                contactList.add(contactInfo);
+                contactInfo = new LinkedHashMap<>();
+            }
+        }catch(FileNotFoundException fnfe){
+            throw fnfe;
+        }catch(IOException ioe){
+            throw ioe;
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(reader != null) reader.close();
+        }
+        
+        return contactList;
     }
 }
