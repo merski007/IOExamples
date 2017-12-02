@@ -20,8 +20,7 @@ import java.util.Map;
 public class FileService {
     private File file;
     private BufferedReader reader;
-    private PrintWriter writer;
-    
+    private PrintWriter writer;    
     
     public List<String> readFile(File file)throws FileNotFoundException, IOException, Exception{
         reader = new BufferedReader(new FileReader(file));
@@ -108,48 +107,50 @@ public class FileService {
         return lineList;
     }
     
-    public List<Map<String,String>> readContactFile2(File file)throws FileNotFoundException, IOException, Exception{
+    public List<Map<String,String>> readFile2(File file, PracticeFormatter pm)throws FileNotFoundException, IOException, Exception{
         reader = new BufferedReader(new FileReader(file));
         
-        List<Map<String,String>> contactList = new ArrayList<>();
-        Map contactInfo = new LinkedHashMap<>();
-
-        String line = reader.readLine();
+//        List<Map<String,String>> contactList = new ArrayList<>();
+//        Map contactInfo = new LinkedHashMap<>();
+//
+//        String line = reader.readLine();
+//        
+//        try{
+//            while(line != null){
+//                String[] contactName = line.split(" ");
+//                contactInfo.put("ContactFirstName", contactName[0]);
+//                contactInfo.put("ContactLastName", contactName[1]);
+//                line = reader.readLine();
+//                
+//                contactInfo.put("ContactAddress", line);
+//                line = reader.readLine();
+//                
+//                String[] contactCityStZip = line.split(",");
+//                String[] contactStZip = contactCityStZip[1].split(" ");
+//                contactInfo.put("ContactCity", contactCityStZip[0]);
+//                contactInfo.put("ContactSt", contactStZip[1]);
+//                contactInfo.put("ContactZip", contactStZip[2]);
+//                line = reader.readLine();
+//                
+//                contactList.add(contactInfo);
+//                contactInfo = new LinkedHashMap<>();
+//            }
+//        }catch(FileNotFoundException fnfe){
+//            throw fnfe;
+//        }catch(IOException ioe){
+//            throw ioe;
+//        }catch(Exception e){
+//            throw e;
+//        }finally{
+//            if(reader != null) reader.close();
+//        }
+//        
+//        return contactList;
         
-        try{
-            while(line != null){
-                String[] contactName = line.split(" ");
-                contactInfo.put("ContactFirstName", contactName[0]);
-                contactInfo.put("ContactLastName", contactName[1]);
-                line = reader.readLine();
-                
-                contactInfo.put("ContactAddress", line);
-                line = reader.readLine();
-                
-                String[] contactCityStZip = line.split(",");
-                String[] contactStZip = contactCityStZip[1].split(" ");
-                contactInfo.put("ContactCity", contactCityStZip[0]);
-                contactInfo.put("ContactSt", contactStZip[1]);
-                contactInfo.put("ContactZip", contactStZip[2]);
-                line = reader.readLine();
-                
-                contactList.add(contactInfo);
-                contactInfo = new LinkedHashMap<>();
-            }
-        }catch(FileNotFoundException fnfe){
-            throw fnfe;
-        }catch(IOException ioe){
-            throw ioe;
-        }catch(Exception e){
-            throw e;
-        }finally{
-            if(reader != null) reader.close();
-        }
-        
-        return contactList;
+        return pm.readsMarksFormat(file, reader);
     }
     
-        public void writeFile2(File file, List<Map<String,String>> data, boolean append) 
+        public void writeFile2(File file, List<Map<String,String>> data, PracticeFormatter pm, boolean append) 
             throws FileNotFoundException, IOException, Exception{
         
         try{
@@ -158,25 +159,9 @@ public class FileService {
                     new BufferedWriter(
                         new FileWriter(file, append)));
         
-//        for(String s : data){
-//            writer.println(s);
-//        }
-
-        /*
-            ContactFirstName ContactLastName
-            ContactAddress
-            ContactCity, ContactSt ContactZip
-        */
-        
-//        final String CR = "\n";
-//        final String SP = " ";
         String result = "";
-        PracticeFormatter pm = new PracticeFormatter();
         for(Map m : data){
-//            result += m.get("ContactFirstName") + " " + m.get("ContactLastName") + CR;
-//            result += m.get("ContactAddress") + CR;
-//            result += m.get("ContactCity") + ", " + m.get("ContactSt") + " " + m.get("ContactZip");
-            result = pm.marksFormat(m);
+            result = pm.encodesMarksFormat(m);
             writer.println(result);
             result = "";
         }

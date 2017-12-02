@@ -15,8 +15,9 @@ public class Practice2 {
         File file = new File("src"+File.separatorChar+"contactList.txt");
         FileService service = new FileService();
         List<Map<String,String>> contactList = new ArrayList<>();
+        PracticeFormatter pm = new PracticeFormatter();
         
-        contactList = service.readContactFile2(file);
+        contactList = service.readFile2(file,pm);
         
         // part 1
         for(Map m : contactList){
@@ -37,7 +38,7 @@ public class Practice2 {
         // append is set to false because i'm adding the contactInfo to the
         // main list i read into, otherwise if would need to create a new
         // List<Map<String,String>> object and i could append only those values
-        service.writeFile2(file, contactList, false);
+        service.writeFile2(file, contactList, pm, false);
         
         // part 3
         System.out.println(contactList.get(1).get("ContactLastName") + "'s State: "
