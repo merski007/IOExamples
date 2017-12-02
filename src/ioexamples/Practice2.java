@@ -15,7 +15,7 @@ public class Practice2 {
         File file = new File("src"+File.separatorChar+"contactList.txt");
         FileService service = new FileService();
         List<Map<String,String>> contactList = new ArrayList<>();
-        PracticeFormatter pm = new PracticeFormatter();
+        FileFormatStrategy pm = new PracticeFormatter();
         
         contactList = service.readFile2(file,pm);
         

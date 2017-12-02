@@ -13,8 +13,9 @@ import java.util.Map;
  *
  * @author mjmersenski
  */
-public class PracticeFormatter {
-    public String encodesMarksFormat(Map<String,String> data){
+public class PracticeFormatter implements FileFormatStrategy{
+    @Override
+    public String encodesFormat(Map<String,String> data){
         /*
             ContactFirstName ContactLastName
             ContactAddress
@@ -32,7 +33,8 @@ public class PracticeFormatter {
             
     }
     
-    public List<Map<String,String>> readsMarksFormat(File file, BufferedReader reader) throws IOException{
+    @Override
+    public List<Map<String,String>> readsFormat(File file, BufferedReader reader) throws IOException{
         List<Map<String,String>> contactList = new ArrayList<>();
         Map contactInfo = new LinkedHashMap<>();
 

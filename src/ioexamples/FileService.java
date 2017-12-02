@@ -107,50 +107,13 @@ public class FileService {
         return lineList;
     }
     
-    public List<Map<String,String>> readFile2(File file, PracticeFormatter pm)throws FileNotFoundException, IOException, Exception{
+    public List<Map<String,String>> readFile2(File file, FileFormatStrategy pm)throws FileNotFoundException, IOException, Exception{
         reader = new BufferedReader(new FileReader(file));
         
-//        List<Map<String,String>> contactList = new ArrayList<>();
-//        Map contactInfo = new LinkedHashMap<>();
-//
-//        String line = reader.readLine();
-//        
-//        try{
-//            while(line != null){
-//                String[] contactName = line.split(" ");
-//                contactInfo.put("ContactFirstName", contactName[0]);
-//                contactInfo.put("ContactLastName", contactName[1]);
-//                line = reader.readLine();
-//                
-//                contactInfo.put("ContactAddress", line);
-//                line = reader.readLine();
-//                
-//                String[] contactCityStZip = line.split(",");
-//                String[] contactStZip = contactCityStZip[1].split(" ");
-//                contactInfo.put("ContactCity", contactCityStZip[0]);
-//                contactInfo.put("ContactSt", contactStZip[1]);
-//                contactInfo.put("ContactZip", contactStZip[2]);
-//                line = reader.readLine();
-//                
-//                contactList.add(contactInfo);
-//                contactInfo = new LinkedHashMap<>();
-//            }
-//        }catch(FileNotFoundException fnfe){
-//            throw fnfe;
-//        }catch(IOException ioe){
-//            throw ioe;
-//        }catch(Exception e){
-//            throw e;
-//        }finally{
-//            if(reader != null) reader.close();
-//        }
-//        
-//        return contactList;
-        
-        return pm.readsMarksFormat(file, reader);
+        return pm.readsFormat(file, reader);
     }
     
-        public void writeFile2(File file, List<Map<String,String>> data, PracticeFormatter pm, boolean append) 
+        public void writeFile2(File file, List<Map<String,String>> data, FileFormatStrategy pm, boolean append) 
             throws FileNotFoundException, IOException, Exception{
         
         try{
@@ -161,7 +124,7 @@ public class FileService {
         
         String result = "";
         for(Map m : data){
-            result = pm.encodesMarksFormat(m);
+            result = pm.encodesFormat(m);
             writer.println(result);
             result = "";
         }
