@@ -68,4 +68,41 @@ public class FileService {
             if(writer != null) writer.close();
         }
     }
+    
+    public List<String> readContactFile(File file)throws FileNotFoundException, IOException, Exception{
+        reader = new BufferedReader(new FileReader(file));
+        
+        List<String> lineList = new ArrayList<>();
+        
+        String del = "|";
+        
+        String line = reader.readLine() + del;
+        line += reader.readLine() + del;
+        line += reader.readLine() + del;
+        
+        try{
+            while(line != null){
+                lineList.add(line);
+                line = reader.readLine();
+                if(line != null){
+                    line += del;
+                    line += reader.readLine() + del;
+                    line += reader.readLine() + del;
+                }
+//                line = reader.readLine() + del;
+//                line += reader.readLine() + del;
+//                line += reader.readLine() + del;
+            }
+        }catch(FileNotFoundException fnfe){
+            throw fnfe;
+        }catch(IOException ioe){
+            throw ioe;
+        }catch(Exception e){
+            throw e;
+        }finally{
+            if(reader != null) reader.close();
+        }
+        
+        return lineList;
+    }
 }
